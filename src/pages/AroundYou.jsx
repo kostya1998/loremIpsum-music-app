@@ -4,6 +4,7 @@ import axios from "axios";
 import { useGetSongsByCountryQuery } from "../features/redux/services/shazamCore";
 import { Loader, Error } from "../shared";
 import { SongCard } from "./../widgets";
+import { geoApiKey } from "../features/config";
 
 const AroundYou = () => {
   const isMounted = useRef(false);
@@ -19,10 +20,7 @@ const AroundYou = () => {
   useEffect(() => {
     if (isMounted.current) {
       axios
-        .get(
-          `https://geo.ipify.org/api/v2/country?apiKey=at_fp8kOXaCNXvUkzbqe3jLb7fPpFCtn
-    `
-        )
+        .get(`https://geo.ipify.org/api/v2/country?apiKey=${geoApiKey}`)
         .then((res) => setCountry(res?.data?.location?.country))
         .catch((err) => console.log(err))
         .finally(() => setLoading(false));
